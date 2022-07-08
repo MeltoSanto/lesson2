@@ -25,12 +25,14 @@ def area_circ(diam):
 
 def area_rect(s1, s2):
     area = s1 * s2
+    area = round(area, 1)
     return area
 
 
 def area_tria(s1, s2, s3):
     p = (s1 + s2 + s3) / 2
     area = math.sqrt(p * (p - s1) * (p - s2) * (p - s3))
+    area = round(area, 1)
     return area
 
 

@@ -2,8 +2,8 @@ import time
 import sys
 from tqdm import tqdm
 
-for i in tq dm(range(1000)):
-    time.sleep(10/1000)
+# for i in tq dm(range(1000)):
+#     time.sleep(10/1000)
 
 
 

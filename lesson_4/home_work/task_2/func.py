@@ -49,3 +49,27 @@ def draw_grapf_one(a):
     x_coords = int(round(a))
     plt.plot(sin(x_coords))
     plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

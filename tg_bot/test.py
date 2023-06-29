@@ -1,5 +1,11 @@
-# import time
+import time
+import timeit
+from collections import Counter
+import re
+
 # import telebot
+
+# import mysql.connector
 import config
 import vk_api
 # from pyfacebook import GraphAPI
@@ -125,8 +131,169 @@ vk = session.get_api()
 # # get_names_chst_users(525)
 
 
-with open('data/id_subs.txt', 'r') as f:
-    for i in f:
-        user = vk.users.get(user_ids=int(i), fields='counters')
-        uuser = user[0]["counters"]["friends"]
-        print(user[0])
+# with open('data/id_subs.txt', 'r') as f:
+#     for i in f:
+#         user = vk.users.get(user_ids=int(i), fields='counters')
+#         uuser = user[0]["counters"]["friends"]
+#         print(user[0])
+
+
+# print("Title".center(10, "~"))
+
+
+# code_to_test = """
+# a = 2 * 2
+# print(a)
+# """
+# elapsed_time = timeit.timeit(code_to_test)
+# print(f"\n", elapsed_time/524261)
+
+# max_friends = {}
+# max_friends[140574805] = 9652
+# for s in max_friends.keys():
+#     print(s, max_friends[s])
+
+# import sqlite3
+# from sqlite3 import Error
+#
+# def sql_connection():
+#     try:
+#
+#         con = sqlite3.connect('data/main.db')
+#         print("Connection done!")
+#
+#         return con
+#
+#     except Error:
+#
+#         print(Error)
+#
+#
+# def sql_table(con):
+#
+#     cursorObj = con.cursor()
+#
+#     cursorObj.execute("""CREATE TABLE employees(id integer PRIMARY KEY,
+#                                                 name text,
+#                                                 salary real,
+#                                                 department text,
+#                                                 position text,
+#                                                 hireDate text
+# )""")
+#
+#     con.commit()
+#
+# con = sql_connection()
+# sql_table(con)
+
+# import sqlite3
+# from sqlite3 import Error
+#
+# def sql_connection():
+#     try:
+#         con = sqlite3.connect('data/main.db')
+#         return con
+#     except Error:
+#         print(Error)
+#
+# con = sql_connection()
+# c = con.cursor()
+# c.execute("""SELECT * FROM sqlite_master WHERE TYPE = 'table'
+# """)
+# tab = c.fetchall()
+# all_tab = []
+# for table in tab:
+#     all_tab.append(table[1])
+#
+# if '213135123' in all_tab:
+#     print('dawdawda')
+# else:
+#     print('0000', str(1241312), 'dag2')
+
+
+# con = sql_connection()
+# cur = con.cursor()
+#
+# cur.execute(f"""SELECT ROWID, user_id, name , lname, count_friends FROM f139882657 WHERE count_friends > 295 ORDER BY count_friends DESC""")
+# tabs = cur.fetchall()
+# # all_tabs = []
+# # for tab in tabs:
+# #     all_tabs.append(tab[0])
+# print(len(tabs))
+
+
+def check_polindrom(id):
+    if str(id) == str(id)[::-1]:
+        return 100
+    else:
+        return 0
+
+
+def check_repeat_digits(id):
+    # моё решение
+    a = 0
+    score = 0
+    score_mass = []
+    for i in str(id):
+        try:
+            if str(id)[a - 1] == i == str(id)[a + 1]:
+                score += 1
+            elif score > 0:
+                score_mass.append(score + 2)
+                score = 0
+            else:
+                a += 1
+                continue
+        except:
+            score_mass.append(score + 2)
+            score = 0
+            continue
+        a += 1
+
+    # решение со StackOverflow
+    score_mass = [len(obj[0]) for obj in re.findall(r"((\d)\2{1,9})", str(id))]
+
+    summs = sum(score_mass)
+
+    if len(score_mass) == 3 and summs == 9:
+        return summs * 5
+    elif len(score_mass) == 3 and summs == 8:
+        return summs * 4
+    elif len(score_mass) == 3 and summs == 7:
+        return summs * 3
+    elif len(score_mass) == 3 and summs == 6:
+        return summs * 2
+
+    elif len(score_mass) == 2 and summs == 8 or summs == 9:
+        return summs * 6
+    elif len(score_mass) == 2 and summs == 6 or summs == 7:
+        return summs * 4
+    elif len(score_mass) == 2 and summs == 4 or summs == 5:
+        return summs * 2
+
+    elif len(score_mass) == 1 and summs == 8 or summs == 9:
+        return summs * 10
+    elif len(score_mass) == 1 and summs == 6 or summs == 7:
+        return summs * 6
+    elif len(score_mass) == 1 and summs == 4 or summs == 5:
+        return summs * 4
+    elif len(score_mass) == 1 and summs == 2 or summs == 3:
+        return summs
+    else:
+        return 0
+
+
+def check_short(id):
+    if len(str(id)) <= 5:
+        return 90
+    elif len(str(id)) <= 4:
+        return 110
+    elif len(str(id)) <= 3:
+        return 150
+    elif len(str(id)) <= 2:
+        return 190
+    else:
+        return 0
+
+id = 666655555
+print(check_short(id) + check_polindrom(id) + check_repeat_digits(id))
